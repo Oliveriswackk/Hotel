@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - Sistema de Reservas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-building"></i> Hotel Reservas
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="bi bi-house"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/habitaciones">
+                            <i class="bi bi-door-open"></i> Habitaciones
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">
+                            <i class="bi bi-people"></i> Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/reservas">
+                            <i class="bi bi-calendar-check"></i> Reservas
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div th:if="${mensaje}" th:classappend="${tipoMensaje == 'success' ? 'alert-success' : 'alert-danger'}" 
+             class="alert alert-dismissible fade show" role="alert">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-calendar-check"></i> Reservas</h2>
+            <a href="/reservas/nueva" class="btn btn-warning">
+                <i class="bi bi-plus-circle"></i> Nueva Reserva
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Habitación</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Estado</th>
+                        <th>Método Pago</th>
+                        <th>Descuento</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${reservas.isEmpty()}">
+                        <td colspan="10" class="text-center">No hay reservas registradas</td>
+                    </tr>
+                    <tr th:each="reserva : ${reservas}">
+                        <td th:text="${reserva.id}"></td>
+                        <td th:text="${reserva.cliente.nombre}"></td>
+                        <td>
+                            <span th:text="${reserva.habitacion.numero}"></span>
+                            <span class="badge bg-secondary" th:text="${reserva.habitacion.tipo}"></span>
+                        </td>
+                        <td th:text="${#temporals.format(reserva.fechaInicio, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(reserva.fechaFin, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <span th:if="${reserva.estado == 'Pendiente'}" class="badge bg-warning" th:text="${reserva.estado}"></span>
+                            <span th:if="${reserva.estado == 'Confirmada'}" class="badge bg-success" th:text="${reserva.estado}"></span>
+                            <span th:if="${reserva.estado == 'Cancelada'}" class="badge bg-danger" th:text="${reserva.estado}"></span>
+                        </td>
+                        <td th:text="${reserva.metodoPago}"></td>
+                        <td th:text="${#numbers.formatDecimal(reserva.descuento, 1, 2) + '%'}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(reserva.total, 1, 2)}"></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/reservas/{id}/editar(id=${reserva.id})}" 
+                                   class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a th:if="${reserva.estado == 'Confirmada'}" 
+                                   th:href="@{/reservas/{id}/comentario(id=${reserva.id})}" 
+                                   class="btn btn-sm btn-info">
+                                    <i class="bi bi-chat"></i>
+                                </a>
+                                <form th:action="@{/reservas/{id}/eliminar(id=${reserva.id})}" 
+                                      method="post" style="display: inline;" 
+                                      onsubmit="return confirm('¿Está seguro de eliminar esta reserva?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="mt-5 py-4 bg-light text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Sistema de Reservas de Hotel. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
