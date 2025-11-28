@@ -301,5 +301,3 @@ Copier le code
 - Justificación de patrones
 
 ---
-
-Por favor, genera el proyecto **totalmente completo y funcional**, listo para ejecutar con `mvn spring-boot:run`, con todos los CRUDs, patrones implementados, validaciones, comentarios y límites de reservas activas.

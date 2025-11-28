@@ -3,107 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Sistema de Reservas de Hotel</title>
+    <title>Inicio - Sistema de Reservas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg glass-nav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <i class="bi bi-building"></i> Hotel Reservas
+            <a class="navbar-brand brand-title" href="/">
+                <i></i> Bay Harbour Suites
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/">
-                            <i class="bi bi-house"></i> Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/habitaciones">
-                            <i class="bi bi-door-open"></i> Habitaciones
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clientes">
-                            <i class="bi bi-people"></i> Clientes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/reservas">
-                            <i class="bi bi-calendar-check"></i> Reservas
-                        </a>
-                    </li>
+                <ul class="navbar-nav ms-auto nav-links">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/habitaciones">Habitaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reservas">Reservas</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="jumbotron bg-light p-5 rounded">
-                    <h1 class="display-4">
-                        <i class="bi bi-building text-primary"></i> Bienvenido al Sistema de Reservas
-                    </h1>
-                    <p class="lead">Gestiona habitaciones, clientes y reservas de manera eficiente</p>
-                    <hr class="my-4">
-                    <p>Utiliza el menú de navegación para acceder a las diferentes secciones del sistema.</p>
-                </div>
-            </div>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero"></section>
 
-        <div class="row mt-4">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <i class="bi bi-door-open display-1 text-primary"></i>
-                        <h5 class="card-title mt-3">Habitaciones</h5>
-                        <p class="card-text">Gestiona las habitaciones del hotel: crear, editar, eliminar y ver disponibilidad.</p>
-                        <a href="/habitaciones" class="btn btn-primary">
-                            <i class="bi bi-arrow-right"></i> Ver Habitaciones
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <i class="bi bi-people display-1 text-success"></i>
-                        <h5 class="card-title mt-3">Clientes</h5>
-                        <p class="card-text">Administra la información de los clientes del hotel.</p>
-                        <a href="/clientes" class="btn btn-success">
-                            <i class="bi bi-arrow-right"></i> Ver Clientes
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <i class="bi bi-calendar-check display-1 text-warning"></i>
-                        <h5 class="card-title mt-3">Reservas</h5>
-                        <p class="card-text">Crea y gestiona las reservas de habitaciones con validaciones automáticas.</p>
-                        <a href="/reservas" class="btn btn-warning">
-                            <i class="bi bi-arrow-right"></i> Ver Reservas
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Imagen del hotel (FIXED) -->
+    <img th:src="@{/images/hotel.png}" alt="Hotel" class="hotel-img" id="hotelImg">
 
-    <footer class="mt-5 py-4 bg-light text-center">
-        <div class="container">
-            <p class="mb-0">&copy; 2024 Sistema de Reservas de Hotel. Todos los derechos reservados.</p>
+   <!-- Info Section -->
+    <section class="info-section" id="infoSection">
+        <div class="info-content">
+            <div class="info-text">
+                <span class="eyebrow">BAY HARBOUR SUITES</span>
+                <h2>Espacios diseñados para sentirse bien</h2>
+                <p class="highlight">
+                    Selecciona el espacio que encaja contigo: desde opciones esenciales hasta suites amplias con acabados premium.
+                </p>
+                <a href="/habitaciones" class="hero-button">Explorar Habitaciones</a>
+            </div>
+            <!-- Espaciador para la imagen -->
+            <div class="image-spacer"></div>
         </div>
-    </footer>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const hotelImg = document.getElementById('hotelImg');
+        const heroSection = document.querySelector('.hero');
+        const infoSection = document.getElementById('infoSection');
+        
+        // Tamaños inicial y final
+        const START_WIDTH = 550;   // MASIVA en hero
+        const END_WIDTH = 420;     //  info section
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroHeight = heroSection.offsetHeight;
+            
+            const transitionStart = 0;
+            const transitionEnd = heroHeight * 0.8;
+            
+            // Calcular progreso (0 a 1)
+            const progress = Math.min(Math.max((scrollY - transitionStart) / (transitionEnd - transitionStart), 0), 1);
+            
+            // Easing suave
+            const easeProgress = progress < 0.5 
+                ? 2 * progress * progress 
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            
+            // Calcular ancho actual
+            const currentWidth = START_WIDTH - (easeProgress * (START_WIDTH - END_WIDTH));
+            
+            // Aplicar transformación
+            hotelImg.style.width = `${currentWidth}px`;
+        });
+        
+        // Inicializar
+        window.dispatchEvent(new Event('scroll'));
+    </script>
 </body>
 </html>
-

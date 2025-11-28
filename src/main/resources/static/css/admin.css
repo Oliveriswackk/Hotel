@@ -1,0 +1,182 @@
+/* ---------------------- GLOBAL ---------------------- */
+body {
+    background: #121212;
+    color: #eaeaea;
+    font-family: "Inter", sans-serif;
+    padding-top: 90px; /* navbar fija */
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+/* ---------------------- NAVBAR ---------------------- */
+.glass-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 5000;
+
+    backdrop-filter: blur(14px) saturate(160%);
+    background: rgba(20, 22, 30, 0.55);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 0;
+}
+
+.brand-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #fff !important;
+}
+
+.nav-link {
+    color: #d0d0d0 !important;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+.nav-link:hover,
+.nav-link.active {
+    color: #fff !important;
+}
+
+/* ---------------------- CONTENEDOR ---------------------- */
+.container {
+    animation: fadeIn .35s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------- BOTONES ---------------------- */
+.btn-primary {
+    background: linear-gradient(135deg, #377dff, #6fa6ff);
+    border: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: 0.25s ease;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(40, 110, 255, 0.35);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #37ff8b, #7affb1);
+    border: none;
+    color: #000;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.btn-warning {
+    background: #ffd56a;
+    border: none;
+    font-weight: 600;
+}
+.btn-warning:hover {
+    background: #ffe08a;
+}
+
+.btn-danger {
+    background: #ff6a6a;
+    border: none;
+    font-weight: 600;
+}
+.btn-danger:hover {
+    background: #ff7d7d;
+}
+
+/* ---------------------- TARJETA / CAJA GLASS ---------------------- */
+.glass-box {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    animation: fadeIn .35s ease;
+}
+
+/* ---------------------- TABLAS ---------------------- */
+.table-responsive {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+table.table {
+    border-radius: 12px;
+    overflow: hidden;
+    color: #eaeaea;
+}
+
+thead.table-dark {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #fff !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+tbody tr:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    transition: 0.2s;
+}
+
+.badge {
+    font-size: .8rem;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+/* ---------------------- FORMULARIOS ---------------------- */
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+    border-color: #6aa6ff;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* ---------------------- ALERTAS ---------------------- */
+.alert {
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+/* ---------------------- FOOTER ---------------------- */
+footer {
+    background: #0d0d0d;
+    color: #b5b5b5;
+    padding: 25px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+/* Estructura para sticky footer */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
