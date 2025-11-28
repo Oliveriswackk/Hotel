@@ -1,35 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Sistema de Reservas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg glass-nav">
-        <div class="container-fluid">
-            <a class="navbar-brand brand-title" href="/">
-                <i></i> Bay Harbour Suites
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto nav-links">
-                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/habitaciones">Habitaciones</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/reservas">Reservas</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <!-- Hero Section -->
     <section class="hero"></section>
@@ -46,7 +29,10 @@
                 <p class="highlight">
                     Selecciona el espacio que encaja contigo: desde opciones esenciales hasta suites amplias con acabados premium.
                 </p>
-                <a href="/habitaciones" class="hero-button">Explorar Habitaciones</a>
+                
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a href="/habitaciones-disponibles" class="hero-button">Explorar Habitaciones</a>
+                </div>
             </div>
             <!-- Espaciador para la imagen -->
             <div class="image-spacer"></div>

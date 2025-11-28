@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+    <!-- Fragmento de Navbar -->
+    <nav class="navbar navbar-expand-lg glass-nav" th:fragment="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand brand-title" href="/">
+                <i></i> Bay Harbour Suites
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto nav-links">
+                    <!-- Inicio - Todos pueden ver -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    
+                    <!-- Opciones de Admin -->
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" href="/habitaciones">Administrar Habitaciones</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" href="/clientes">Administrar Clientes</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" href="/reservas">Administrar Reservas</a>
+                    </li>
+                    
+                    <!-- Habitaciones Disponibles - User y Admin -->
+                    <li class="nav-item" sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                        <a class="nav-link" href="/habitaciones-disponibles">Habitaciones</a>
+                    </li>
+                    
+                    <!-- Salir - Solo si está autenticado -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/logout}" style="cursor: pointer;">
+                            <i class="bi bi-box-arrow-right"></i> Salir
+                        </a>
+                    </li>
+                    
+                    <!-- Iniciar Sesión - Solo si NO está autenticado -->
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
+

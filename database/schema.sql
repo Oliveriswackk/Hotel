@@ -15,12 +15,25 @@ CREATE TABLE IF NOT EXISTS habitaciones (
     CONSTRAINT chk_precio CHECK (precio > 0)
 );
 
--- Tabla: clientes
+-- Tabla: clientes (debe crearse antes que usuarios por la FK)
 CREATE TABLE IF NOT EXISTS clientes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     telefono VARCHAR(20) NOT NULL
+);
+
+-- Tabla: usuarios
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    rol VARCHAR(20) NOT NULL DEFAULT 'USER',
+    activo BOOLEAN DEFAULT TRUE,
+    cliente_id INT NULL,
+    CONSTRAINT fk_usuario_cliente FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE SET NULL,
+    CONSTRAINT chk_rol CHECK (rol IN ('USER', 'ADMIN'))
 );
 
 -- Tabla: reservas

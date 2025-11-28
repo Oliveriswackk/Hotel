@@ -8,6 +8,7 @@ public class HomeController {
     
     @GetMapping("/")
     public String home() {
+        // Todos pueden ver el index, incluyendo admins
         return "index";
     }
 }

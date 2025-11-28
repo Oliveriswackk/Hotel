@@ -2,6 +2,12 @@
 
 USE hotel_db;
 
+-- Insertar usuarios (password: "admin123" y "user123" encriptados con BCrypt)
+-- Para generar nuevas contraseñas: usar BCryptPasswordEncoder
+INSERT INTO usuarios (nombre, email, password, rol, activo) VALUES
+('Administrador', 'admin@hotel.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iwy8pLN0O', 'ADMIN', TRUE),
+('Usuario Test', 'user@hotel.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iwy8pLN0O', 'USER', TRUE);
+
 -- Insertar habitaciones
 INSERT INTO habitaciones (numero, tipo, precio, disponible) VALUES
 ('101', 'Simple', 50.00, TRUE),

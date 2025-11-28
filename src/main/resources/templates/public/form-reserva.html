@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Habitación - Sistema de Reservas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container mt-4">
+        <div th:if="${mensaje}" th:classappend="${tipoMensaje == 'success' ? 'alert-success' : 'alert-danger'}" 
+             class="alert alert-dismissible fade show" role="alert">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">
+                            <i class="bi bi-calendar-check"></i> Reservar Habitación
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h5>Información de la Habitación</h5>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <p><strong>Número:</strong> <span th:text="${habitacion.numero}"></span></p>
+                                    <p><strong>Tipo:</strong> 
+                                        <span class="badge bg-info" th:text="${habitacion.tipo}"></span>
+                                    </p>
+                                    <p><strong>Precio por noche:</strong> 
+                                        <span class="text-success fw-bold" 
+                                              th:text="'$' + ${#numbers.formatDecimal(habitacion.precio, 1, 2)}"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form th:action="@{/habitaciones-disponibles/reservar/{id}(id=${habitacion.id})}" 
+                              method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fechaInicio" class="form-label">
+                                        <i class="bi bi-calendar-event"></i> Fecha de Inicio *
+                                    </label>
+                                    <input type="date" class="form-control" id="fechaInicio" 
+                                           name="fechaInicio" th:min="${fechaMinima}" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="fechaFin" class="form-label">
+                                        <i class="bi bi-calendar-x"></i> Fecha de Fin *
+                                    </label>
+                                    <input type="date" class="form-control" id="fechaFin" 
+                                           name="fechaFin" th:min="${fechaMinima}" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="metodoPago" class="form-label">
+                                    <i class="bi bi-credit-card"></i> Método de Pago *
+                                </label>
+                                <select class="form-select" id="metodoPago" name="metodoPago" required>
+                                    <option value="">Seleccione un método</option>
+                                    <option th:each="metodo : ${metodosPago}" 
+                                            th:value="${metodo}" 
+                                            th:text="${metodo}"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="descuento" class="form-label">
+                                    <i class="bi bi-percent"></i> Descuento (%)
+                                </label>
+                                <input type="number" step="0.01" min="0" max="100" 
+                                       class="form-control" id="descuento" name="descuento" 
+                                       placeholder="Dejar vacío para descuento automático">
+                                <small class="form-text text-muted">
+                                    Se aplicará descuento automático según duración si se deja vacío
+                                </small>
+                            </div>
+                            
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle"></i> 
+                                <strong>Nota:</strong> El total se calculará automáticamente según las fechas seleccionadas y se aplicarán descuentos si corresponde.
+                            </div>
+                            
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-check-circle"></i> Confirmar Reserva
+                                </button>
+                                <a href="/habitaciones-disponibles" class="btn btn-secondary btn-lg">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5 py-4 bg-light text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Sistema de Reservas de Hotel. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Validar que fecha fin sea posterior a fecha inicio
+        document.getElementById('fechaInicio').addEventListener('change', function() {
+            const fechaInicio = this.value;
+            const fechaFin = document.getElementById('fechaFin');
+            if (fechaInicio) {
+                fechaFin.min = fechaInicio;
+                if (fechaFin.value && fechaFin.value < fechaInicio) {
+                    fechaFin.value = fechaInicio;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
